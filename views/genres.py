@@ -21,4 +21,4 @@ class GenreView(Resource):
 
     def get(self, gid: int):
         """Возвращает жанр по его id"""
-        return genre_schema.dump(genre_service.get_by_id(gid))
+        return genre_schema.dump(genre_service.get_by_id(gid)), 200
