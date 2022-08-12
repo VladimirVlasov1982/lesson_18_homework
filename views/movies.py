@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, url_for
 from flask_restx import Resource, Namespace
 from implemented import movie_service
 from dao.model.shemas import MovieSchema
@@ -20,7 +20,8 @@ class MoviesView(Resource):
 
     def post(self):
         """Добавляет фильм"""
-        return movie_schema.dump(movie_service.create(request.json)), 201
+        movie = movie_service.create(request.json)
+        return movie_schema.dump(movie), 201, {'Location': f"{url_for('movies_movie_view', mid=movie.id)}"}
 
 
 @movie_ns.route('/<int:mid>')

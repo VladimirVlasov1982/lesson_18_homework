@@ -1,5 +1,5 @@
 from dao.model.models import Movie
-
+from constants import PER_PAGE
 
 class MovieDAO:
     """DAO фильмы"""

@@ -26,7 +26,7 @@ class MovieService:
         if "year" in data:
             movies = self.dao.get_by_year(data.get('year'))
             return movies
-        return ""
+        return None
 
     def create(self, data):
         # Добавление нового фильма
@@ -34,16 +34,19 @@ class MovieService:
 
     def update(self, data):
         # Обновление фильма
-        mid = data.get('id')
-        movie = self.dao.get_by_id(mid)
-        movie.title = data.get('title')
-        movie.description = data.get('description')
-        movie.trailer = data.get('trailer')
-        movie.year = data.get('year')
-        movie.rating = data.get('rating')
-        movie.genre_id = data.get('genre_id')
-        movie.director_id = data.get('director_id')
-        return self.dao.update(movie)
+        try:
+            mid = data.get('id')
+            movie = self.dao.get_by_id(mid)
+            movie.title = data.get('title')
+            movie.description = data.get('description')
+            movie.trailer = data.get('trailer')
+            movie.year = data.get('year')
+            movie.rating = data.get('rating')
+            movie.genre_id = data.get('genre_id')
+            movie.director_id = data.get('director_id')
+            return self.dao.update(movie)
+        except Exception:
+            return None
 
     def delete(self, mid: int):
         # Удаление фильма
