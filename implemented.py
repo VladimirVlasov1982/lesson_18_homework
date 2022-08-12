@@ -1,4 +1,4 @@
-# файл для создания DAO и сервисов чтобы импортировать их везде
+# Создание DAO и сервисов чтобы импортировать их везде
 from dao.directors_dao import DirectorDAO
 from dao.genres_dao import GenreDAO
 from dao.movies_dao import MovieDAO

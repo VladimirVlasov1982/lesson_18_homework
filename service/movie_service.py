@@ -2,16 +2,21 @@ from dao.movies_dao import MovieDAO
 
 
 class MovieService:
+    """Сервисы фильма"""
+
     def __init__(self, dao: MovieDAO):
         self.dao = dao
 
     def get_all(self):
+        # Получить все фильмы
         return self.dao.get_all()
 
     def get_by_id(self, mid: int):
+        # Получить фильм по его id
         return self.dao.get_by_id(mid)
 
     def get_by_request(self, data):
+        # Получить фильмы по id режиссера, id жанра и году
         if "director_id" in data:
             movies = self.dao.get_by_director(data.get('director_id'))
             return movies
@@ -24,9 +29,11 @@ class MovieService:
         return ""
 
     def create(self, data):
+        # Добавление нового фильма
         return self.dao.create(data)
 
     def update(self, data):
+        # Обновление фильма
         mid = data.get('id')
         movie = self.dao.get_by_id(mid)
         movie.title = data.get('title')
@@ -39,5 +46,6 @@ class MovieService:
         return self.dao.update(movie)
 
     def delete(self, mid: int):
+        # Удаление фильма
         movie = self.dao.get_by_id(mid)
         return self.dao.delete(movie)

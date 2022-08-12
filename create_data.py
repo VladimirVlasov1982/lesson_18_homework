@@ -1,5 +1,5 @@
+# Создание базы данных
 import json
-
 from config import Config
 from dao.model.models import Movie, Director, Genre
 from setup_db import db
@@ -15,7 +15,8 @@ def insert_data(model, input_data):
         db.session.add(model(**row))
         db.session.commit()
 
-def init_database():
+
+def create_base():
     """Создание таблиц"""
     db.drop_all()
     db.create_all()
@@ -29,4 +30,5 @@ def init_database():
     with open("fixtures/genres.json", "r", encoding="utf-8") as file:
         insert_data(Genre, json.load(file))
 
-init_database()
+
+create_base()
