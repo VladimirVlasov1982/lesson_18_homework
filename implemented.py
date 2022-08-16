@@ -8,7 +8,7 @@ from service.base_service import BaseService
 from service.movie_service import MovieService
 from setup_db import db
 
-movie_dao = MovieDAO(db.session, Movie)
+movie_dao = MovieDAO(db.session)
 movie_service = MovieService(movie_dao)
 
 director_dao = BaseDAO(db.session, Director)

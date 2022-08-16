@@ -5,9 +5,8 @@ from dao.model.models import Movie
 class MovieDAO(BaseDAO):
     """DAO фильмы"""
 
-    def __init__(self, session, Movie):
-        super().__init__(session, model=Movie)
-
+    def __init__(self, db_session):
+        super().__init__(db_session, Movie)
 
     def get_by_director(self, director_id: int) -> list[Movie]:
         # Получить фильмы по id режиссера
