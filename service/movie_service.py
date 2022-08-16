@@ -1,10 +1,11 @@
+from dao.model.models import Movie
 from service.base_service import BaseService
 
 
 class MovieService(BaseService):
     """Сервисы фильма"""
 
-    def get_by_request(self, data):
+    def get_by_request(self, data: dict) -> list[Movie] | None:
         # Получить фильмы по id режиссера, id жанра и году
         if "director_id" in data:
             movies = self.dao.get_by_director(data.get('director_id'))
@@ -17,11 +18,11 @@ class MovieService(BaseService):
             return movies
         return None
 
-    def create(self, data):
+    def create(self, data: dict) -> Movie:
         # Добавление нового фильма
         return self.dao.create(data)
 
-    def update(self, data):
+    def update(self, data: dict) -> Movie | None:
         # Обновление фильма
         try:
             mid = data.get('id')
@@ -37,7 +38,7 @@ class MovieService(BaseService):
         except Exception:
             return None
 
-    def delete(self, mid: int):
+    def delete(self, mid: int) -> Movie | None:
         # Удаление фильма
         movie = self.dao.get_by_id(mid)
         return self.dao.delete(movie)
