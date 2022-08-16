@@ -1,38 +1,27 @@
-from dao.model.models import Movie
-from constants import PER_PAGE
+from dao.base_dao import BaseDAO
 
-class MovieDAO:
+
+class MovieDAO(BaseDAO):
     """DAO фильмы"""
-
-    def __init__(self, session):
-        self.session = session
-
-    def get_all(self):
-        # Получить все фильмы
-        return self.session.query(Movie).all()
-
-    def get_by_id(self, mid: int):
-        # Получить фильм по его id
-        return self.session.query(Movie).get(mid)
 
     def get_by_director(self, director_id):
         # Получить фильмы по id режиссера
-        movies = self.session.query(Movie).filter(Movie.director_id == director_id).all()
+        movies = self.session.query(self.model).filter(self.model.director_id == director_id).all()
         return movies
 
     def get_by_genre(self, genre_id):
         # Получить фильмы по id жанра
-        movies = self.session.query(Movie).filter(Movie.genre_id == genre_id).all()
+        movies = self.session.query(self.model).filter(self.model.genre_id == genre_id).all()
         return movies
 
     def get_by_year(self, year):
         # Получить фильмы по году
-        movies = self.session.query(Movie).filter(Movie.year == year).all()
+        movies = self.session.query(self.model).filter(self.model.year == year).all()
         return movies
 
     def create(self, data):
         # Добавление нового фильма
-        movie = Movie(**data)
+        movie = self.model(**data)
         self.session.add(movie)
         self.session.commit()
         return movie

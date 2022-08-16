@@ -2,10 +2,15 @@
 from setup_db import db
 
 
-class Movie(db.Model):
+class BaseModel(db.Model):
+    __abstract__ = True
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+
+class Movie(BaseModel):
     """Модель фильма"""
     __tablename__ = "movie"
-    id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(250))
     description = db.Column(db.Text)
     trailer = db.Column(db.String)
@@ -17,15 +22,13 @@ class Movie(db.Model):
     director = db.relationship('Director')
 
 
-class Director(db.Model):
+class Director(BaseModel):
     """Модель режиссера"""
     __tablename__ = "director"
-    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
 
 
-class Genre(db.Model):
+class Genre(BaseModel):
     """Модель жанра"""
     __tablename__ = "genre"
-    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))

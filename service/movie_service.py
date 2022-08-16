@@ -1,19 +1,8 @@
-from dao.movies_dao import MovieDAO
+from service.base_service import BaseService
 
 
-class MovieService:
+class MovieService(BaseService):
     """Сервисы фильма"""
-
-    def __init__(self, dao: MovieDAO):
-        self.dao = dao
-
-    def get_all(self):
-        # Получить все фильмы
-        return self.dao.get_all()
-
-    def get_by_id(self, mid: int):
-        # Получить фильм по его id
-        return self.dao.get_by_id(mid)
 
     def get_by_request(self, data):
         # Получить фильмы по id режиссера, id жанра и году

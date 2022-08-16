@@ -13,22 +13,27 @@ def insert_data(model, input_data):
     """Загрузка данных в таблицы"""
     for row in input_data:
         db.session.add(model(**row))
-        db.session.commit()
+
 
 
 def create_base():
     """Создание таблиц"""
     db.drop_all()
     db.create_all()
+    try:
+        with open("fixtures/movies.json", "r", encoding="utf-8") as file:
+            insert_data(Movie, json.load(file))
 
-    with open("fixtures/movies.json", "r", encoding="utf-8") as file:
-        insert_data(Movie, json.load(file))
+        with open("fixtures/direcors.json", "r", encoding="utf-8") as file:
+            insert_data(Director, json.load(file))
 
-    with open("fixtures/direcors.json", "r", encoding="utf-8") as file:
-        insert_data(Director, json.load(file))
+        with open("fixtures/genres.json", "r", encoding="utf-8") as file:
+            insert_data(Genre, json.load(file))
 
-    with open("fixtures/genres.json", "r", encoding="utf-8") as file:
-        insert_data(Genre, json.load(file))
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        db.session.commit()
 
 
 create_base()

@@ -1,5 +1,11 @@
 # Здесь схемы сериализации
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, ValidationError
+
+def validate_int(item):
+    if type(item) != int:
+        raise ValidationError("No integer")
+
+
 
 
 class MovieSchema(Schema):
@@ -8,7 +14,7 @@ class MovieSchema(Schema):
     title = fields.Str()
     description = fields.Str()
     trailer = fields.Str()
-    year = fields.Integer()
+    year = fields.Integer(validate=validate_int)
     rating = fields.Float()
     genre = fields.Nested('GenreSchema')
     director = fields.Nested('DirectorSchema')

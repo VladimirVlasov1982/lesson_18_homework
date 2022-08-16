@@ -2,6 +2,7 @@ from flask_restx import Resource, Namespace
 from dao.model.shemas import GenreSchema
 from implemented import genre_service
 
+
 genre_ns = Namespace('genres')
 
 genre_schema = GenreSchema()
@@ -21,4 +22,6 @@ class GenreView(Resource):
 
     def get(self, gid: int):
         """Возвращает жанр по его id"""
-        return genre_schema.dump(genre_service.get_by_id(gid))
+        if genre_service.get_by_id(gid) is None:
+            return "", 404
+        return genre_schema.dump(genre_service.get_by_id(gid)), 200
