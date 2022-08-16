@@ -1,10 +1,11 @@
 from dao.base_dao import BaseDAO
+from dao.model.models import Movie
 
 
 class MovieDAO(BaseDAO):
     """DAO фильмы"""
 
-    def get_by_director(self, director_id):
+    def get_by_director(self, director_id: int) -> list[Movie]:
         # Получить фильмы по id режиссера
         movies = self.session.query(self.model).filter(self.model.director_id == director_id).all()
         return movies
